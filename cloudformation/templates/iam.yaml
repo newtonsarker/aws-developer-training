@@ -1,0 +1,74 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Resources:
+  LambdaDevelopmentPolicy:
+    Type: 'AWS::IAM::ManagedPolicy'
+    Properties:
+      ManagedPolicyName: 'LambdaDevelopmentPolicy'
+      PolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Action:
+              - lambda:CreateFunction
+              - lambda:UpdateFunctionCode
+              - lambda:UpdateFunctionConfiguration
+              - lambda:DeleteFunction
+              - lambda:GetFunction
+              - lambda:ListFunctions
+              - lambda:InvokeFunction
+              - lambda:GetFunctionConfiguration
+            Resource: 'arn:aws:lambda:*:*:function:*'
+          - Effect: Allow
+            Action:
+              - iam:PassRole
+            Resource: 'arn:aws:iam::*:role/*'
+          - Effect: Allow
+            Action:
+              - logs:CreateLogGroup
+              - logs:CreateLogStream
+              - logs:PutLogEvents
+              - logs:DescribeLogStreams
+              - logs:GetLogEvents
+            Resource: 'arn:aws:logs:*:*:*'
+          - Effect: Allow
+            Action:
+              - s3:PutObject
+              - s3:GetObject
+              - s3:ListBucket
+            Resource:
+              - 'arn:aws:s3:::*'
+
+  CloudDevRole:
+    Type: 'AWS::IAM::Role'
+    Properties:
+      RoleName: 'CloudDevRole'
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+                - lambda.amazonaws.com
+                - cloudformation.amazonaws.com
+            Action: 'sts:AssumeRole'
+      ManagedPolicyArns:
+        - !Ref LambdaDevelopmentPolicy
+
+  CloudDevGroup:
+    Type: 'AWS::IAM::Group'
+    Properties:
+      GroupName: 'CloudDevGroup'
+      ManagedPolicyArns:
+        - !Ref LambdaDevelopmentPolicy
+
+  CloudDevUser:
+    Type: 'AWS::IAM::User'
+    Properties:
+      UserName: 'CloudDev1'
+      Groups:
+        - !Ref CloudDevGroup
+
+  CloudDevAccessKey:
+    Type: 'AWS::IAM::AccessKey'
+    Properties:
+      UserName: 'CloudDev1'

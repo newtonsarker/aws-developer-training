@@ -1,0 +1,14 @@
+AWSTemplateFormatVersion: '2010-09-09'
+
+Parameters:
+  Environment:
+    Type: String
+    Description: "The environment name (e.g., dev, test, prod)"
+
+Resources:
+
+
+#  IAMStack:
+#    Type: 'AWS::CloudFormation::Stack'
+#    Properties:
+#      TemplateURL: !Sub 'https://s3.eu-north-1.amazonaws.com/cf.eu-north-1.trainingstack/templates/iam.yaml'
