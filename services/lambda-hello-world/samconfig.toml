@@ -3,10 +3,9 @@
 version = 0.1
 
 [default.global.parameters]
-stack_name = "hello-java"
+stack_name = "lambda-hello-world"
 
 [default.build.parameters]
-cached = true
 parallel = true
 
 [default.validate.parameters]
@@ -16,6 +15,7 @@ lint = true
 capabilities = "CAPABILITY_IAM"
 confirm_changeset = true
 resolve_s3 = true
+resolve_image_repos = true
 
 [default.package.parameters]
 resolve_s3 = true

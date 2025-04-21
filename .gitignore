@@ -24,3 +24,6 @@ hs_err_pid*
 replay_pid*
 /hello-java/.idea/
 /.idea/
+/services/lambda-hello-world/.aws-sam/
+/services/lambda-hello-world/HelloWorldFunction/target/
+/services/lambda-hello-world/HelloWorldFunction/dependency-reduced-pom.xml
