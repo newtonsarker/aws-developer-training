@@ -6,6 +6,7 @@ BUCKET_NAME="cf.$REGION.$STACK_NAME"
 
 
 # Delete the CloudFormation stack
+aws cloudformation delete-stack --stack-name lambda-hello-world --region "$REGION"
 aws cloudformation delete-stack --stack-name "$STACK_NAME" --region "$REGION"
 
 
